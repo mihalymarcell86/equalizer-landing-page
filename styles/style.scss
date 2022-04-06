@@ -1,0 +1,184 @@
+@use "utilities" as *;
+
+:root {
+  font-size: 1em;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+  background: {
+    image: url("../assets/bg-main-mobile.png");
+    size: 175%;
+    position: -25px -290px;
+    repeat: no-repeat;
+    color: color(snow);
+  }
+  color: color(eerie-black);
+}
+
+.logo_top {
+  margin: {
+    top: 39.99px;
+    left: 24.15px;
+    bottom: 64.01px;
+  }
+}
+
+.top-section {
+  font-size: 1rem;
+  margin: 0 24px calc(4.25em + 98px);
+
+  h1 {
+    font-size: em(40px, 1rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.45px;
+    margin-bottom: em(20px, 40px);
+  }
+
+  p {
+    line-height: 1.625;
+  }
+}
+
+.illustrations {
+  background: {
+    image: url("../assets/bg-pattern-2.svg");
+    repeat: no-repeat;
+    position: top center;
+    size: 280px 420px;
+    color: color(eerie-black);
+  }
+  height: 600px;
+  border-radius: 12px;
+
+  img {
+    display: block;
+    width: 209px;
+    height: 430px;
+    margin: auto;
+    position: relative;
+    top: -98px;
+  }
+}
+
+.premium {
+  display: flex;
+  flex-direction: column;
+
+  background-color: color(outrageous-orange);
+  color: color(snow);
+  padding: rem(48px) 36px;
+  border-radius: 12px;
+  position: relative;
+  top: -220px;
+  margin-bottom: calc(rem(64px) - 220px);
+
+  font-size: rem(18px);
+
+  h2 {
+    font-size: em(32px, 18px);
+    line-height: 1.25;
+    margin-bottom: em(12px, 32px);
+  }
+
+  p {
+    line-height: 1.5556;
+    margin-bottom: em(36px, 18px);
+  }
+}
+
+.premium__price {
+  font-size: em(20px, 18px);
+  margin-bottom: em(32px, 20px);
+  position: relative;
+
+  .price {
+    @include setFont(em(65px, 20px), 700, 0.8);
+    margin-left: em(6px, 65px);
+  }
+
+  .unit {
+    line-height: 1.6;
+    letter-spacing: -0.2px;
+    margin-left: 0.8em;
+    position: absolute;
+    bottom: 11px;
+  }
+}
+
+button {
+  font-size: em(18px, 18px);
+  font-weight: 700;
+  border: 0;
+  letter-spacing: -0.18px;
+  height: em(61px, 18px);
+  border-radius: 12px;
+  cursor: pointer;
+
+  img {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.button-ios {
+  background-color: color(eerie-black);
+  color: color(snow);
+  margin-bottom: em(16px, 18px);
+  img {
+    margin-right: 7.92px;
+  }
+  &:hover {
+    background-color: color(sky-blue);
+  }
+}
+
+.button-android {
+  background-color: color(snow);
+  color: color(eerie-black);
+  img {
+    margin-right: 7.8px;
+  }
+  &:hover {
+    background-color: color(pastel-orange);
+  }
+}
+
+footer {
+  font-size: rem(16px);
+  padding: 0 24px;
+
+  .logo_bottom {
+    margin-bottom: rem(32.01px);
+  }
+
+  p {
+    margin-bottom: em(64px, 16px);
+    line-height: 1.625;
+  }
+
+  a {
+    font-weight: 700;
+    color: color(eerie-black);
+    text-decoration: none;
+  }
+
+  svg {
+    margin: {
+      right: 20px;
+      bottom: em(80px, 16px);
+    }
+    &:hover path {
+      fill: color(outrageous-orange);
+    }
+  }
+}

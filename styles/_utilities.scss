@@ -1,0 +1,115 @@
+@use "sass:math";
+
+//GLOBAL VARIABLES
+$REM: 16;
+
+$units: 1cm, 1mm, 1Q, 1in, 1pc, 1pt, 1px, 1em, 1ex, 1ch, 1rem, 1vw, 1vh, 1vmin,
+  1vmax, 1%;
+
+//Unit conversion table (unit | px)
+$unit-table: (
+  px: 1,
+  in: 96,
+  pc: 16,
+  pt: math.div(96, 72),
+  cm: 37.8,
+  mm: 3.78,
+  Q: math.div(37.8, 40),
+  rem: $REM,
+);
+
+$colors: (
+  sky-blue: #66e2dc,
+  outrageous-orange: #fa7453,
+  pastel-orange: #ffb964,
+  snow: #fcfaf9,
+  eerie-black: #191826,
+);
+
+//Viewport breakpoints
+$w_mobile: 375;
+$w_tablet: 768;
+$w_desktop: 1440;
+
+//FUNCTIONS
+
+@function color($colorName) {
+  @return map-get($colors, $colorName);
+}
+
+@function lerp($x1, $y1, $x2, $y2, $unit) {
+  //calculates fluid dimensions relative to viewport width
+  //(x1, x2) - viewport widths
+  //(y1, y2) - corresponding values
+  $divisor: 1;
+  @if $unit == rem {
+    $divisor: $REM;
+  }
+  $m: calc(($y2 - $y1) / calc(($x2 - $x1) / $divisor));
+  $y-intercept: $y1 - $m * calc($x1 / $divisor);
+  @return calc(#{$m} * 100vw + #{calc($y-intercept)}#{$unit});
+}
+
+// ---?
+@mixin setFont($font-size, $weight: false, $line-height: false) {
+  font-size: $font-size;
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $line-height {
+    line-height: $line-height;
+  }
+}
+// ---?
+
+@function strip-unit($value) {
+  @each $unit in $units {
+    @if unit($value) == unit($unit) {
+      @return math.div($value, $unit);
+    }
+  }
+  @error "Invalid unit!";
+  @return null;
+}
+
+@function convertUnit($value, $to) {
+  $thisUnit: unit($value);
+  @if $thisUnit == em {
+    @error "Conversion not supported!";
+    @return $value;
+  }
+  @if $thisUnit == $to {
+    @return $value;
+  }
+  $inpx: strip-unit($value) * map-get($unit-table, $thisUnit);
+  $converted: math.div($inpx, map-get($unit-table, $to));
+  @each $unit in $units {
+    //convert string to number
+    @if unit($unit) == $to {
+      $to: $unit;
+    }
+  }
+  @if type-of($to) != number {
+    @error "Ivalid unit! Conversion failed.";
+    @return $value;
+  }
+  @return $converted * $to;
+}
+
+@function rem($px) {
+  @return convertUnit($px, rem);
+}
+
+@function em($value, $context) {
+  @if unit($value) == em or unit($context) == em {
+    @error "Ivalid unit! Conversion failed.";
+    @return $value;
+  }
+  @if unit($value) != px {
+    $value: convertUnit($value, px);
+  }
+  @if unit($context) != px {
+    $context: convertUnit($context, px);
+  }
+  @return math.div($value, $context) * 1em;
+}
