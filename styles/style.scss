@@ -1,4 +1,8 @@
 @use "utilities" as *;
+@use "sass:math";
+
+//TODO - setFont mixins!
+//TODO - @media mixins!
 
 :root {
   font-size: 1em;
@@ -22,6 +26,25 @@ body {
     color: color(snow);
   }
   color: color(eerie-black);
+  @media (min-width: rem(768px)) {
+    background: {
+      image: url("../assets/bg-pattern-1.svg"),
+        url("../assets/bg-main-tablet.png");
+      size: 266.67px 400px, 175%;
+      position: top -32px right -35.67px, -405px -265px;
+    }
+    padding-inline: 33px;
+  }
+  @media (min-width: rem(1440px)) {
+    background: {
+      image: url("../assets/bg-pattern-1.svg"),
+        url("../assets/bg-main-desktop.png");
+      size: 312px 468px, 150%;
+      position: top -40px right, -405px -265px;
+    }
+    padding-inline: 165px;
+    //adjust background!
+  }
 }
 
 .logo_top {
@@ -30,11 +53,29 @@ body {
     left: 24.15px;
     bottom: 64.01px;
   }
+  @media (min-width: rem(768px)) {
+    margin: {
+      top: 61.99px;
+      left: 0.15px;
+      bottom: 95.01px;
+    }
+  }
+  @media (min-width: rem(1440px)) {
+    margin-bottom: 127.01px;
+  }
 }
 
 .top-section {
   font-size: 1rem;
-  margin: 0 24px calc(4.25em + 98px);
+  margin: 0 24px calc(em(68px, 1rem) + 98px);
+  @media (min-width: rem(768px)) {
+    font-size: rem(18px);
+    margin: 0 170px calc(em(111px, 18px) + 138px) 6px;
+  }
+  @media (min-width: rem(1440px)) {
+    font-size: rem(20px);
+    margin: 0 254px calc(em(108px, 20px) + 213px) 0px;
+  }
 
   h1 {
     font-size: em(40px, 1rem);
@@ -42,10 +83,28 @@ body {
     line-height: 1.2;
     letter-spacing: -0.45px;
     margin-bottom: em(20px, 40px);
+    @media (min-width: rem(768px)) {
+      font-size: em(64px, 18px);
+      line-height: 1;
+      letter-spacing: -0.73px;
+      margin-bottom: em(28px, 64px);
+    }
+    @media (min-width: rem(1440px)) {
+      font-size: em(88px, 20px);
+      letter-spacing: -1px;
+      margin-bottom: em(40px, 88px);
+    }
   }
 
   p {
     line-height: 1.625;
+    @media (min-width: rem(768px)) {
+      line-height: math.div(28, 18);
+      margin-right: 6px;
+    }
+    @media (min-width: rem(1440px)) {
+      line-height: math.div(34, 20);
+    }
   }
 }
 
@@ -59,14 +118,35 @@ body {
   }
   height: 600px;
   border-radius: 12px;
+  @media (min-width: rem(768px)) {
+    background-position: 229px -31px;
+  }
+  @media (min-width: rem(1440px)) {
+    background: {
+      size: 312px 468px;
+      position: 336px -40px;
+    }
+  }
 
   img {
     display: block;
     width: 209px;
     height: 430px;
-    margin: auto;
+    margin-left: 80.67px;
     position: relative;
     top: -98px;
+    @media (min-width: rem(768px)) {
+      width: 270.21px;
+      height: 556px;
+      margin-left: 64px;
+      top: -138px;
+    }
+    @media (min-width: rem(1440px)) {
+      width: 312px;
+      height: 642px;
+      margin-left: 102px;
+      top: -213px;
+    }
   }
 }
 
@@ -84,15 +164,41 @@ body {
 
   font-size: rem(18px);
 
+  @media (min-width: rem(768px)) {
+    padding-inline: 48px;
+    width: 399px;
+    margin-left: 239px;
+    top: -450px;
+    margin-bottom: calc(rem(87px) - 450px);
+  }
+  @media (min-width: rem(1440px)) {
+    padding-inline: 54px;
+    padding-top: 58px;
+    width: 446px;
+    margin-left: 569px;
+    top: -510px;
+    margin-bottom: calc(rem(87px) - 510px);
+    font-size: rem(20px);
+  }
+
   h2 {
     font-size: em(32px, 18px);
     line-height: 1.25;
     margin-bottom: em(12px, 32px);
+    @media (min-width: rem(1440px)) {
+      font-size: em(40px, 20px);
+      line-height: math.div(52, 40);
+      margin-bottom: em(22px, 40px);
+    }
   }
 
   p {
-    line-height: 1.5556;
+    line-height: math.div(28, 18);
     margin-bottom: em(36px, 18px);
+    @media (min-width: rem(1440px)) {
+      line-height: math.div(34, 20);
+      margin-bottom: em(39px, 20px);
+    }
   }
 }
 
@@ -104,6 +210,9 @@ body {
   .price {
     @include setFont(em(65px, 20px), 700, 0.8);
     margin-left: em(6px, 65px);
+    @media (min-width: rem(1440px)) {
+      margin-left: 0;
+    }
   }
 
   .unit {
@@ -156,14 +265,39 @@ button {
 footer {
   font-size: rem(16px);
   padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: rem(768px)) {
+    padding: 0;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .footer__text {
+    @media (min-width: rem(1440px)) {
+      display: flex;
+      flex-direction: row;
+    }
+  }
 
   .logo_bottom {
     margin-bottom: rem(32.01px);
+    align-self: flex-start;
+    //prevent image from resizing
+    @media (min-width: rem(1440px)) {
+      margin-right: 137.76px;
+      margin-bottom: 0;
+    }
   }
 
   p {
     margin-bottom: em(64px, 16px);
     line-height: 1.625;
+    @media (min-width: rem(1440px)) {
+      width: em(366.79px, 16px);
+      margin-bottom: 0;
+    }
   }
 
   a {
@@ -172,13 +306,25 @@ footer {
     text-decoration: none;
   }
 
-  svg {
-    margin: {
-      right: 20px;
-      bottom: em(80px, 16px);
+  .social-media {
+    bottom: em(80px, 16px);
+    flex-shrink: 0;
+    @media (min-width: rem(768px)) {
+      margin-top: em(94px, 16px);
     }
+    @media (min-width: rem(1440px)) {
+      margin-top: 29px;
+    }
+  }
+
+  svg {
+    margin-right: 20px;
+
     &:hover path {
       fill: color(outrageous-orange);
+    }
+    &.twitter {
+      margin-right: 0;
     }
   }
 }
