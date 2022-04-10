@@ -1,9 +1,6 @@
 @use "utilities" as *;
 @use "sass:math";
 
-//TODO - setFont mixins!
-//TODO - @media mixins!
-
 :root {
   font-size: 1em;
 }
@@ -26,84 +23,96 @@ body {
     color: color(snow);
   }
   color: color(eerie-black);
-  @media (min-width: rem(768px)) {
+  padding-inline: MTlerp(0px, 33px);
+  @media (min-width: rem(670px)) {
+    background: {
+      image: url("../assets/bg-pattern-1.svg"),
+        url("../assets/bg-main-mobile.png");
+      size: 266.67px 400px, 175%;
+      position: 537px -32px, -25px -290px;
+    }
+  }
+  @include media(tablet) {
     background: {
       image: url("../assets/bg-pattern-1.svg"),
         url("../assets/bg-main-tablet.png");
-      size: 266.67px 400px, 175%;
-      position: top -32px right -35.67px, -405px -265px;
+      size: TDlerp(266.67px, 312px) TDlerp(400px, 468px), 175%;
+      position: top TDlerp(-32px, -40px) right TDlerp(-35.67px, 0px),
+        -405px -265px;
     }
-    padding-inline: 33px;
+    padding-inline: TDlerp(33px, 165px);
   }
-  @media (min-width: rem(1440px)) {
+  @include media(desktop) {
     background: {
       image: url("../assets/bg-pattern-1.svg"),
         url("../assets/bg-main-desktop.png");
       size: 312px 468px, 150%;
-      position: top -40px right, -405px -265px;
+      position: top -40px right, -470px -350px;
     }
     padding-inline: 165px;
-    //adjust background!
   }
 }
 
 .logo_top {
   margin: {
-    top: 39.99px;
-    left: 24.15px;
-    bottom: 64.01px;
+    top: MTlerp(39.99px, 61.99px);
+    left: MTlerp(24.15px, 0.15px);
+    bottom: MTlerp(64.01px, 95.01px);
   }
-  @media (min-width: rem(768px)) {
+  @include media(tablet) {
     margin: {
       top: 61.99px;
       left: 0.15px;
-      bottom: 95.01px;
+      bottom: TDlerp(95.01px, 127.01px);
     }
   }
-  @media (min-width: rem(1440px)) {
+  @include media(desktop) {
     margin-bottom: 127.01px;
   }
 }
 
 .top-section {
-  font-size: 1rem;
-  margin: 0 24px calc(em(68px, 1rem) + 98px);
-  @media (min-width: rem(768px)) {
-    font-size: rem(18px);
-    margin: 0 170px calc(em(111px, 18px) + 138px) 6px;
+  margin: 0 MTlerp(24px, 170px) MTlerp(rem(166px), rem(249px)) MTlerp(24px, 6px);
+  @include media(tablet) {
+    margin: 0 TDlerp(170px, 254px) TDlerp(rem(249px), rem(321px))
+      TDlerp(6px, 0px);
   }
-  @media (min-width: rem(1440px)) {
-    font-size: rem(20px);
-    margin: 0 254px calc(em(108px, 20px) + 213px) 0px;
+  @include media(desktop) {
+    margin: 0 254px rem(321px) 0px;
   }
 
   h1 {
-    font-size: em(40px, 1rem);
+    font-size: MTlerp(rem(40px), rem(64px));
     font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.45px;
-    margin-bottom: em(20px, 40px);
-    @media (min-width: rem(768px)) {
-      font-size: em(64px, 18px);
+    line-height: MTlerp(rem(48px), rem(64px));
+    letter-spacing: MTlerp(-0.45px, -1px);
+    margin-bottom: MTlerp(rem(20px), rem(28px));
+    @include media(tablet) {
+      font-size: TDlerp(rem(64px), rem(88px));
       line-height: 1;
-      letter-spacing: -0.73px;
-      margin-bottom: em(28px, 64px);
+      letter-spacing: TDlerp(-0.73px, -1px);
+      margin-bottom: TDlerp(rem(28px), rem(40px));
     }
-    @media (min-width: rem(1440px)) {
-      font-size: em(88px, 20px);
+    @include media(desktop) {
+      font-size: rem(88px);
       letter-spacing: -1px;
-      margin-bottom: em(40px, 88px);
+      margin-bottom: rem(40px);
     }
   }
 
   p {
-    line-height: 1.625;
-    @media (min-width: rem(768px)) {
-      line-height: math.div(28, 18);
-      margin-right: 6px;
+    font-size: MTlerp(rem(16px), rem(18px));
+    line-height: MTlerp(rem(26px), rem(28px));
+    margin-right: MTlerp(0px, 11px);
+    @include media(tablet) {
+      font-size: TDlerp(rem(18px), rem(20px));
+      line-height: TDlerp(rem(28px), rem(34px));
+      margin-right: 11px;
     }
-    @media (min-width: rem(1440px)) {
+    @include media(desktop) {
+      font-size: rem(20px);
       line-height: math.div(34, 20);
+      margin-right: 0;
     }
   }
 }
@@ -112,16 +121,19 @@ body {
   background: {
     image: url("../assets/bg-pattern-2.svg");
     repeat: no-repeat;
-    position: top center;
+    position: MTlerp(48px, 229px) MTlerp(0px, -31px);
     size: 280px 420px;
     color: color(eerie-black);
   }
   height: 600px;
   border-radius: 12px;
-  @media (min-width: rem(768px)) {
-    background-position: 229px -31px;
+  max-width: 1110px;
+  margin: 0 auto;
+  @include media(tablet) {
+    background-position: TDlerp(229px, 336px) TDlerp(-31px, -40px);
+    size: TDlerp(280px, 312px) TDlerp(420px, 468px);
   }
-  @media (min-width: rem(1440px)) {
+  @include media(desktop) {
     background: {
       size: 312px 468px;
       position: 336px -40px;
@@ -130,18 +142,18 @@ body {
 
   img {
     display: block;
-    width: 209px;
-    height: 430px;
-    margin-left: 80.67px;
+    width: MTlerp(209px, 270.21px);
+    height: MTlerp(430px, 556px);
+    margin-left: MTlerp(80.67px, 64px);
     position: relative;
-    top: -98px;
-    @media (min-width: rem(768px)) {
-      width: 270.21px;
-      height: 556px;
-      margin-left: 64px;
-      top: -138px;
+    top: MTlerp(-98px, -138px);
+    @include media(tablet) {
+      width: TDlerp(270.21px, 312px);
+      height: TDlerp(556px, 642px);
+      margin-left: TDlerp(64px, 102px);
+      top: TDlerp(-138px, -213px);
     }
-    @media (min-width: rem(1440px)) {
+    @include media(desktop) {
       width: 312px;
       height: 642px;
       margin-left: 102px;
@@ -156,61 +168,81 @@ body {
 
   background-color: color(outrageous-orange);
   color: color(snow);
-  padding: rem(48px) 36px;
+  padding: rem(48px) MTlerp(36px, 48px);
   border-radius: 12px;
   position: relative;
-  top: -220px;
-  margin-bottom: calc(rem(64px) - 220px);
+  width: MTlerp(rem(375px), rem(399px));
+  top: MTlerp(-220px, -450px);
+  margin-left: MTlerp(0px, 239px);
+  margin-bottom: calc(
+    lerp($w_mobile, rem(64px), $w_tablet, rem(87px)) +
+      lerp($w_mobile, -220px, $w_tablet, -450px)
+  );
 
-  font-size: rem(18px);
-
-  @media (min-width: rem(768px)) {
-    padding-inline: 48px;
-    width: 399px;
-    margin-left: 239px;
-    top: -450px;
-    margin-bottom: calc(rem(87px) - 450px);
+  @include media(tablet) {
+    padding-inline: TDlerp(48px, 54px);
+    width: TDlerp(rem(399px), rem(446px));
+    margin-left: TDlerp(239px, 569px);
+    top: TDlerp(-450px, -510px);
+    margin-bottom: calc(rem(87px) + TDlerp(-450px, -510px));
+    padding-top: TDlerp(48px, 58px);
   }
-  @media (min-width: rem(1440px)) {
+  @include media(desktop) {
     padding-inline: 54px;
     padding-top: 58px;
-    width: 446px;
+    width: rem(446px);
     margin-left: 569px;
     top: -510px;
     margin-bottom: calc(rem(87px) - 510px);
-    font-size: rem(20px);
   }
 
   h2 {
-    font-size: em(32px, 18px);
+    font-size: rem(32px);
     line-height: 1.25;
-    margin-bottom: em(12px, 32px);
-    @media (min-width: rem(1440px)) {
-      font-size: em(40px, 20px);
+    margin-bottom: rem(12px);
+    @include media(tablet) {
+      font-size: TDlerp(rem(32px), rem(40px));
+      line-height: TDlerp(rem(40px), rem(52px));
+      margin-bottom: TDlerp(rem(12px), rem(22px));
+    }
+    @include media(desktop) {
+      font-size: rem(40px);
       line-height: math.div(52, 40);
-      margin-bottom: em(22px, 40px);
+      margin-bottom: rem(22px);
     }
   }
 
   p {
+    font-size: rem(18px);
     line-height: math.div(28, 18);
-    margin-bottom: em(36px, 18px);
-    @media (min-width: rem(1440px)) {
+    margin-bottom: rem(36px);
+    @include media(tablet) {
+      font-size: TDlerp(rem(18px), rem(20px));
+      line-height: TDlerp(rem(28px), rem(34px));
+      margin-bottom: TDlerp(rem(36px), rem(39px));
+    }
+    @include media(desktop) {
+      font-size: rem(20px);
       line-height: math.div(34, 20);
-      margin-bottom: em(39px, 20px);
+      margin-bottom: rem(39px);
     }
   }
 }
 
 .premium__price {
-  font-size: em(20px, 18px);
-  margin-bottom: em(32px, 20px);
+  font-size: rem(20px);
+  margin-bottom: rem(32px);
   position: relative;
 
   .price {
-    @include setFont(em(65px, 20px), 700, 0.8);
-    margin-left: em(6px, 65px);
-    @media (min-width: rem(1440px)) {
+    font-size: rem(65px);
+    font-weight: 700;
+    line-height: 0.8;
+    margin-left: rem(6px);
+    @include media(tablet) {
+      margin-left: TDlerp(rem(6px), rem(0px));
+    }
+    @include media(desktop) {
       margin-left: 0;
     }
   }
@@ -225,24 +257,25 @@ body {
 }
 
 button {
-  font-size: em(18px, 18px);
+  font-size: rem(18px);
   font-weight: 700;
   border: 0;
   letter-spacing: -0.18px;
-  height: em(61px, 18px);
+  height: rem(61px);
   border-radius: 12px;
   cursor: pointer;
 
   img {
     position: relative;
     top: 2px;
+    //fix resize
   }
 }
 
 .button-ios {
   background-color: color(eerie-black);
   color: color(snow);
-  margin-bottom: em(16px, 18px);
+  margin-bottom: rem(16px);
   img {
     margin-right: 7.92px;
   }
@@ -263,19 +296,18 @@ button {
 }
 
 footer {
-  font-size: rem(16px);
-  padding: 0 24px;
+  padding: 0 MTlerp(24px, 0px);
   display: flex;
   flex-direction: column;
 
-  @media (min-width: rem(768px)) {
+  @include media(tablet) {
     padding: 0;
     flex-direction: row;
     justify-content: space-between;
   }
 
   .footer__text {
-    @media (min-width: rem(1440px)) {
+    @media (min-width: rem(1050px)) {
       display: flex;
       flex-direction: row;
     }
@@ -284,19 +316,20 @@ footer {
   .logo_bottom {
     margin-bottom: rem(32.01px);
     align-self: flex-start;
-    //prevent image from resizing
-    @media (min-width: rem(1440px)) {
+    @media (min-width: rem(1050px)) {
       margin-right: 137.76px;
       margin-bottom: 0;
     }
   }
 
   p {
-    margin-bottom: em(64px, 16px);
+    font-size: rem(16px);
+    max-width: rem(366px);
+    margin-bottom: rem(64px);
     line-height: 1.625;
-    @media (min-width: rem(1440px)) {
-      width: em(366.79px, 16px);
+    @media (min-width: rem(1050px)) {
       margin-bottom: 0;
+      margin-right: 1rem;
     }
   }
 
@@ -307,12 +340,11 @@ footer {
   }
 
   .social-media {
-    bottom: em(80px, 16px);
     flex-shrink: 0;
-    @media (min-width: rem(768px)) {
-      margin-top: em(94px, 16px);
+    @include media(tablet) {
+      margin-top: lerp($w_tablet, 94px, 1050px, 29px);
     }
-    @media (min-width: rem(1440px)) {
+    @media (min-width: rem(1050px)) {
       margin-top: 29px;
     }
   }

@@ -27,9 +27,9 @@ $colors: (
 );
 
 //Viewport breakpoints
-$w_mobile: 375;
-$w_tablet: 768;
-$w_desktop: 1440;
+$w_mobile: 375px;
+$w_tablet: 768px;
+$w_desktop: 1440px;
 
 //FUNCTIONS
 
@@ -37,10 +37,27 @@ $w_desktop: 1440;
   @return map-get($colors, $colorName);
 }
 
-@function lerp($x1, $y1, $x2, $y2, $unit) {
+// Linear interpolation
+
+@function lerp($x1, $y1, $x2, $y2) {
   //calculates fluid dimensions relative to viewport width
-  //(x1, x2) - viewport widths
-  //(y1, y2) - corresponding values
+  //(x1, x2) - viewport widths || (y1, y2) - corresponding values
+  $unit: px !default;
+  @if unit($y1) != unit($y2) or unit($x1) != unit($x2) {
+    @error "Units have to match!";
+  }
+  @if unit($y1) == px {
+    $unit: px;
+  }
+  @if unit($y1) == rem {
+    $unit: rem;
+  }
+
+  $y1: strip-unit($y1);
+  $y2: strip-unit($y2);
+  $x1: strip-unit($x1);
+  $x2: strip-unit($x2);
+
   $divisor: 1;
   @if $unit == rem {
     $divisor: $REM;
@@ -50,19 +67,24 @@ $w_desktop: 1440;
   @return calc(#{$m} * 100vw + #{calc($y-intercept)}#{$unit});
 }
 
-// ---?
-@mixin setFont($font-size, $weight: false, $line-height: false) {
-  font-size: $font-size;
-  @if $weight {
-    font-weight: $weight;
-  }
-  @if $line-height {
-    line-height: $line-height;
+@function MTlerp($y1, $y2) {
+  @if ($y1 < $y2) {
+    @return max($y1, lerp($w_mobile, $y1, $w_tablet, $y2));
+  } @else {
+    @return min($y1, lerp($w_mobile, $y1, $w_tablet, $y2));
   }
 }
-// ---?
+
+@function TDlerp($y1, $y2) {
+  @return lerp($w_tablet, $y1, $w_desktop, $y2);
+}
+
+// Unit conversion
 
 @function strip-unit($value) {
+  @if unitless($value) {
+    @return $value;
+  }
   @each $unit in $units {
     @if unit($value) == unit($unit) {
       @return math.div($value, $unit);
@@ -112,4 +134,21 @@ $w_desktop: 1440;
     $context: convertUnit($context, px);
   }
   @return math.div($value, $context) * 1em;
+}
+
+// Breaking point mixins
+
+@mixin media($type) {
+  $width: undefined;
+  @if $type == tablet {
+    $width: $w_tablet;
+  } @else if $type == desktop {
+    $width: $w_desktop;
+  } @else {
+    @error "Unknown media type!";
+  }
+
+  @media (min-width: rem($width)) {
+    @content;
+  }
 }
