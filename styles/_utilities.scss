@@ -27,6 +27,7 @@ $colors: (
 );
 
 //Viewport breakpoints
+$w_min: 320px;
 $w_mobile: 375px;
 $w_tablet: 768px;
 $w_desktop: 1440px;
@@ -67,12 +68,12 @@ $w_desktop: 1440px;
   @return calc(#{$m} * 100vw + #{calc($y-intercept)}#{$unit});
 }
 
+@function MMlerp($y1, $y2) {
+  @return lerp($w_min, $y1, $w_mobile, $y2);
+}
+
 @function MTlerp($y1, $y2) {
-  @if ($y1 < $y2) {
-    @return max($y1, lerp($w_mobile, $y1, $w_tablet, $y2));
-  } @else {
-    @return min($y1, lerp($w_mobile, $y1, $w_tablet, $y2));
-  }
+  @return lerp($w_mobile, $y1, $w_tablet, $y2);
 }
 
 @function TDlerp($y1, $y2) {
@@ -144,6 +145,8 @@ $w_desktop: 1440px;
     $width: $w_tablet;
   } @else if $type == desktop {
     $width: $w_desktop;
+  } @else if $type == mobile {
+    $width: $w_mobile;
   } @else {
     @error "Unknown media type!";
   }

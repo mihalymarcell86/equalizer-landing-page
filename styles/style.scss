@@ -55,9 +55,16 @@ body {
 
 .logo_top {
   margin: {
-    top: MTlerp(39.99px, 61.99px);
-    left: MTlerp(24.15px, 0.15px);
-    bottom: MTlerp(64.01px, 95.01px);
+    top: 39.99px;
+    left: MMlerp(18px, 24.15px);
+    bottom: 64.01px;
+  }
+  @include media(mobile) {
+    margin: {
+      top: MTlerp(39.99px, 61.99px);
+      left: MTlerp(24.15px, 0.15px);
+      bottom: MTlerp(64.01px, 95.01px);
+    }
   }
   @include media(tablet) {
     margin: {
@@ -72,7 +79,11 @@ body {
 }
 
 .top-section {
-  margin: 0 MTlerp(24px, 170px) MTlerp(rem(166px), rem(249px)) MTlerp(24px, 6px);
+  margin: 0 MMlerp(18px, 24px) MTlerp(rem(166px), rem(249px)) MMlerp(18px, 24px);
+  @include media(mobile) {
+    margin: 0 MTlerp(24px, 170px) MTlerp(rem(166px), rem(249px))
+      MTlerp(24px, 6px);
+  }
   @include media(tablet) {
     margin: 0 TDlerp(170px, 254px) TDlerp(rem(249px), rem(321px))
       TDlerp(6px, 0px);
@@ -142,11 +153,18 @@ body {
 
   img {
     display: block;
-    width: MTlerp(209px, 270.21px);
-    height: MTlerp(430px, 556px);
-    margin-left: MTlerp(80.67px, 64px);
     position: relative;
-    top: MTlerp(-98px, -138px);
+    width: 209px;
+    height: 430px;
+    top: -98px;
+    margin-left: MMlerp(55px, 80.67px);
+    @include media(mobile) {
+      width: MTlerp(209px, 270.21px);
+      height: MTlerp(430px, 556px);
+      top: MTlerp(-98px, -138px);
+      margin-left: MTlerp(80.67px, 64px);
+    }
+
     @include media(tablet) {
       width: TDlerp(270.21px, 312px);
       height: TDlerp(556px, 642px);
@@ -168,16 +186,23 @@ body {
 
   background-color: color(outrageous-orange);
   color: color(snow);
-  padding: rem(48px) MTlerp(36px, 48px);
   border-radius: 12px;
   position: relative;
-  width: MTlerp(rem(375px), rem(399px));
-  top: MTlerp(-220px, -450px);
-  margin-left: MTlerp(0px, 239px);
-  margin-bottom: calc(
-    lerp($w_mobile, rem(64px), $w_tablet, rem(87px)) +
-      lerp($w_mobile, -220px, $w_tablet, -450px)
-  );
+
+  top: -220px;
+  padding: rem(48px) MMlerp(18px, 36px);
+  margin-bottom: calc(rem(64px) - 220px);
+
+  @include media(mobile) {
+    padding-inline: MTlerp(36px, 48px);
+    width: MTlerp(rem(375px), rem(399px));
+    top: MTlerp(-220px, -450px);
+    margin-left: MTlerp(0px, 239px);
+    margin-bottom: calc(
+      lerp($w_mobile, rem(64px), $w_tablet, rem(87px)) +
+        lerp($w_mobile, -220px, $w_tablet, -450px)
+    );
+  }
 
   @include media(tablet) {
     padding-inline: TDlerp(48px, 54px);
@@ -296,9 +321,14 @@ button {
 }
 
 footer {
-  padding: 0 MTlerp(24px, 0px);
   display: flex;
   flex-direction: column;
+
+  padding: 0 MMlerp(18px, 24px);
+
+  @include media(mobile) {
+    padding-inline: MTlerp(24px, 0px);
+  }
 
   @include media(tablet) {
     padding: 0;
